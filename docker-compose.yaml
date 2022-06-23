@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   app:
@@ -6,7 +6,7 @@ services:
     entrypoint: sh ./.docker/entrypoint.sh
     container_name: gerenciador-api
     ports:
-      - 4000:4000
+      - 3000:4000
     restart: always
     tty: true
     networks:
@@ -21,6 +21,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: admin
     tty: true
     networks:
       - api-gerenciador
