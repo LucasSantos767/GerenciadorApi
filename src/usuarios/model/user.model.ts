@@ -3,9 +3,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, Matches, IsNotEmpty } from 'class-validator';
 import { Document } from 'mongoose';
 
+export interface UserModel{
+
+    name:string;
+    email:string;
+    password?:string;
+}
+
 export type UserDocument = User & Document;
 @Schema()
-export class User {
+export class User implements UserModel{
     
     @Prop({ required: true })
     @ApiProperty()
