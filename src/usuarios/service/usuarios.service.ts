@@ -21,7 +21,7 @@ export class UsuariosService {
   }
 
   findByEmail(email: string) {
-    return this.userModel.findOne({ where: { email } });
+    return this.userModel.findOne({email});
   }
 
   findAll() {
