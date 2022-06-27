@@ -13,9 +13,13 @@ export class UsuariosService {
       ...user,
       password: await bcrypt.hash(user.password, 10),
     }
+
      return this.userModel.create(data);
   }
 
+  findByEmail(email: string) {
+    return this.userModel.find({ where: { email } });
+  }
 
   findAll() {
     return this.userModel.find();
