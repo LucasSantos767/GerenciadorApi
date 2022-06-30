@@ -3,31 +3,31 @@ import { ApiParam } from '@nestjs/swagger';
 import { User } from '../model/user.model';
 import { UsuariosService } from '../service/usuarios.service';
 
-@Controller('usuarios')
+@Controller()
 export class UsuariosController { 
   constructor(private readonly usuariosService: UsuariosService) { }
 
-  @Post()
+  @Post('register')
   create(@Body() createUsuarioDto: User) {
     return this.usuariosService.create(createUsuarioDto);
   }
-  @Get()
+  @Get('list-all')
   findAll() {
     return this.usuariosService.findAll();
   }
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get('search')
+  findOne(@Body('id') id: string) {
     return this.usuariosService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id:string, @Body() updateUsuarioDto: User) {
+  @Patch('update')
+  update(@Body('id') id:string, @Body() updateUsuarioDto: User) {
     return this.usuariosService.update(id, updateUsuarioDto);
   }
 
-  @Delete(':id')
+  @Delete('delete')
   @ApiParam({name:'id'})
-  remove(@Param('id') id: string) {
+  remove(@Body('id') id: string) {
     return this.usuariosService.remove(id);
   }
 }
