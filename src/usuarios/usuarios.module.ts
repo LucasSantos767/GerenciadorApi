@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { UsuariosController } from '../controllers/usuarios.controller';
-import { UsuariosService } from '../service/usuarios.service';
-import { User, UserSchema } from './user.model';
+import { UsuariosController } from './controllers/usuarios.controller';
+import { UsuariosService } from './service/usuarios.service';
+import { User, UserSchema } from './model/user.model';
 
 
 @Module({
