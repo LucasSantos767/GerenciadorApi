@@ -23,7 +23,6 @@ export class UsuariosService {
   findByEmail(email: string) {
     return this.userModel.findOne({email});
   }
-
   findAll() {
     return this.userModel.find();
 

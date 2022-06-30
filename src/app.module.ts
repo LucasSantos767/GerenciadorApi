@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {MongooseModule} from '@nestjs/mongoose'
+import { MongooseModule } from '@nestjs/mongoose'
 import { UsuariosModule } from './usuarios/model/usuarios.module';
 import { AuthModule } from './auth/auth.module';
 
@@ -12,4 +12,4 @@ import { AuthModule } from './auth/auth.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
