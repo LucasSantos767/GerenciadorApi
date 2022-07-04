@@ -14,7 +14,6 @@ export class UsuariosService {
       ...user,
       password: await bcrypt.hash(user.password, 10),
     }
-
      const RestUser = await this.userModel.create(data);
 
     return {email: RestUser.email, name: RestUser.name}
@@ -26,10 +25,6 @@ export class UsuariosService {
   findAll() {
     return this.userModel.find();
 
-  }
-
-  findOne(id: string) {
-    return this.userModel.findById(id);
   }
 
   update(id: string, user: User) {
