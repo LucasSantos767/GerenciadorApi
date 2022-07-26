@@ -1,6 +1,6 @@
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Role } from './../../auth/model/role.enum';
-import { Controller, Get, Post, Body, Patch, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, UseGuards, Param } from '@nestjs/common';
 import { ApiParam } from '@nestjs/swagger';
 import { User } from '../model/user.model';
 import { UsuariosService } from '../service/usuarios.service';
@@ -22,25 +22,26 @@ export class UsuariosController {
   findAll() {
     return this.usuariosService.findAll();
   }
-  @Get('search')
+  @Get('search/:email')
   @Roles(Role.ADMIN, Role.USER)
   @UseGuards(RolesGuard)
-  findOne(@Body('email') email: string) {
+  @ApiParam({name:'email'})
+  findOne(@Param('email') email: string) {
     return this.usuariosService.findByEmail(email);
   }
 
-  @Patch('update')
+  @Patch('update/:id')
   @Roles(Role.ADMIN)
   @UseGuards(RolesGuard)
-  update(@Body('id') id: string, @Body() updateUsuarioDto: User) {
+  update(@Param('id') id: string, @Body() updateUsuarioDto: User) {
     return this.usuariosService.update(id, updateUsuarioDto);
   }
 
-  @Delete('delete')
+  @Delete('delete/:id')
   @Roles(Role.ADMIN)
   @UseGuards(RolesGuard)
   @ApiParam({ name: 'id' })
-  remove(@Body('id') id: string) {
+  remove(@Param('id') id: string) {
     return this.usuariosService.remove(id);
   }
 }

@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { SocketGateway } from 'src/socket/socket.gateway';
 import { UsuariosModule } from 'src/usuarios/usuarios.module';
 import { AuthController } from './controllers/auth.controller';
 import { RolesGuard } from './guards/roles.guard';
@@ -16,7 +17,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     }
   })],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, RolesGuard]
+  providers: [AuthService, LocalStrategy, JwtStrategy, RolesGuard, SocketGateway]
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
