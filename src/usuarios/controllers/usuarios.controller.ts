@@ -1,10 +1,10 @@
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { RolesGuard } from '../../auth/guards/roles.guard';
 import { Role } from './../../auth/model/role.enum';
 import { Controller, Get, Post, Body, Patch, Delete, UseGuards, Param } from '@nestjs/common';
 import { ApiParam } from '@nestjs/swagger';
 import { User } from '../model/user.model';
 import { UsuariosService } from '../service/usuarios.service';
-import { Roles } from 'src/auth/decorators/roles-decorator';
+import { Roles } from '../../auth/decorators/roles-decorator';
 
 @Controller()
 export class UsuariosController {
