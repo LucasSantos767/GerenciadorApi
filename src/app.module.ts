@@ -7,7 +7,7 @@ import { SocketGateway } from './socket/socket.gateway';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://root:root@db:27017/manager?authSource=admin'),
+    MongooseModule.forRoot(process.env.DB_CONNECT),
     UsuariosModule,
     AuthModule,
     SocketModule,
