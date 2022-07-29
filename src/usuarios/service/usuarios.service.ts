@@ -1,4 +1,4 @@
-import { SocketGateway } from 'src/socket/socket.gateway';
+import { SocketGateway } from '../../socket/socket.gateway';
 import { UserModel } from './../model/user.model';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
