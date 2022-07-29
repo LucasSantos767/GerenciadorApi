@@ -25,8 +25,8 @@ describe('TesteController', () => {
                     create: jest.fn().mockResolvedValue(user),
                     findAll: jest.fn().mockResolvedValue(UserList),
                     findByEmail: jest.fn().mockResolvedValue(user),
-                    update: jest.fn(),
-                    remove: jest.fn()
+                    update: jest.fn().mockResolvedValue(user),
+                    remove: jest.fn().mockResolvedValue(true),
                 }
             }],
         }).compile();
@@ -59,7 +59,7 @@ describe('TesteController', () => {
             const body = {
                 name: 'Admin', email: 'admin@gmail.com', password: 'Admin123@', role: Role.ADMIN
             }
-            const result = await usuariosService.create(body);
+            const result = await usuarioscontroller.create(body);
             expect(result).toEqual(user)
             expect(usuariosService.create).toHaveBeenCalledTimes(1)
             expect(usuariosService.create).toHaveBeenCalledWith(body)
@@ -70,13 +70,13 @@ describe('TesteController', () => {
             }
             jest.spyOn(usuariosService, 'create').mockRejectedValueOnce(new Error());
 
-            expect(usuariosService.create(body)).rejects.toThrowError();
+            expect(usuarioscontroller.create(body)).rejects.toThrowError();
         })
     });
     describe('findByEmail', () => {
         it('deve retornar infomações do usuário', async () => {
             const email = 'admin@gmail.com';
-            const result = await usuariosService.findByEmail(email)
+            const result = await usuarioscontroller.findOne(email)
             expect(result).toEqual(user)
             expect(usuariosService.findByEmail).toHaveBeenCalledTimes(1)
         });
@@ -84,7 +84,40 @@ describe('TesteController', () => {
             const email = 'admin@gmail.com';
             jest.spyOn(usuariosService, 'findByEmail').mockRejectedValueOnce(new Error());
 
-            expect(usuariosService.findByEmail(email)).rejects.toThrowError();
+            expect(usuarioscontroller.findOne(email)).rejects.toThrowError();
         });
+    });
+    describe('update',()=>{
+        it('deve atualizar infomações do usuário', async()=>{
+            const body = {
+                name: 'Admin', email: 'admin1@gmail.com', password: 'Admin123@', role: Role.ADMIN
+            }
+            const id = '23sdsd';
+            const result = await usuarioscontroller.update(id,body)
+            expect(result).toEqual(user)
+            expect(usuariosService.update).toHaveBeenCalledTimes(1)
+        });
+        it('deve lançar uma exeção',()=>{
+            const body = {
+                name: 'Admin', email: 'admin1@gmail.com', password: 'Admin123@', role: Role.ADMIN
+            }
+            const id = '23sdsd';
+            jest.spyOn(usuariosService, 'update').mockRejectedValueOnce(new Error());
+
+            expect(usuarioscontroller.update(id,body)).rejects.toThrowError();
+        })
+    });
+    describe('remove',()=>{
+        it('deve deletar um usuario',async()=>{
+            const id = '23sdsd';
+            const result = await usuarioscontroller.remove(id)
+            expect(result).toEqual(true)
+            expect(usuariosService.remove).toHaveBeenCalledTimes(1)
+        });
+        it('deve lançar uma exeção',()=>{
+            const id = '23sdsd';
+            jest.spyOn(usuariosService, 'remove').mockRejectedValueOnce(new Error());
+            expect(usuarioscontroller.remove(id)).rejects.toThrowError()
+        })
     });
 });
