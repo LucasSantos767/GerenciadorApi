@@ -14,7 +14,7 @@ const user = new User({
 })
 
 describe('TesteController', () => {
-    let usuarioscontroller: UsuariosController;
+    let usuariosController: UsuariosController;
     let usuariosService: UsuariosService;
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -31,18 +31,18 @@ describe('TesteController', () => {
             }],
         }).compile();
 
-        usuarioscontroller = module.get<UsuariosController>(UsuariosController);
+        usuariosController = module.get<UsuariosController>(UsuariosController);
         usuariosService = module.get<UsuariosService>(UsuariosService);
 
     });
 
     it('should be defined', () => {
-        expect(usuarioscontroller).toBeDefined();
+        expect(usuariosController).toBeDefined();
         expect(usuariosService).toBeDefined();
     });
     describe('findAll', () => {
         it('deve retornar uma lista de usuários com sucesso', async () => {
-            const result = await usuarioscontroller.findAll();
+            const result = await usuariosController.findAll();
 
             expect(result).toEqual(UserList);
             expect(typeof result).toEqual('object');
@@ -51,7 +51,7 @@ describe('TesteController', () => {
         it('deve lançar uma exeção', () => {
             jest.spyOn(usuariosService, 'findAll').mockRejectedValueOnce(new Error());
 
-            expect(usuarioscontroller.findAll()).rejects.toThrowError();
+            expect(usuariosController.findAll()).rejects.toThrowError();
         });
     });
     describe('create', () => {
@@ -59,7 +59,7 @@ describe('TesteController', () => {
             const body = {
                 name: 'Admin', email: 'admin@gmail.com', password: 'Admin123@', role: Role.ADMIN
             }
-            const result = await usuarioscontroller.create(body);
+            const result = await usuariosController.create(body);
             expect(result).toEqual(user)
             expect(usuariosService.create).toHaveBeenCalledTimes(1)
             expect(usuariosService.create).toHaveBeenCalledWith(body)
@@ -70,13 +70,13 @@ describe('TesteController', () => {
             }
             jest.spyOn(usuariosService, 'create').mockRejectedValueOnce(new Error());
 
-            expect(usuarioscontroller.create(body)).rejects.toThrowError();
+            expect(usuariosController.create(body)).rejects.toThrowError();
         })
     });
     describe('findByEmail', () => {
         it('deve retornar infomações do usuário', async () => {
             const email = 'admin@gmail.com';
-            const result = await usuarioscontroller.findOne(email)
+            const result = await usuariosController.findOne(email)
             expect(result).toEqual(user)
             expect(usuariosService.findByEmail).toHaveBeenCalledTimes(1)
         });
@@ -84,7 +84,7 @@ describe('TesteController', () => {
             const email = 'admin@gmail.com';
             jest.spyOn(usuariosService, 'findByEmail').mockRejectedValueOnce(new Error());
 
-            expect(usuarioscontroller.findOne(email)).rejects.toThrowError();
+            expect(usuariosController.findOne(email)).rejects.toThrowError();
         });
     });
     describe('update',()=>{
@@ -93,7 +93,7 @@ describe('TesteController', () => {
                 name: 'Admin', email: 'admin1@gmail.com', password: 'Admin123@', role: Role.ADMIN
             }
             const id = '23sdsd';
-            const result = await usuarioscontroller.update(id,body)
+            const result = await usuariosController.update(id,body)
             expect(result).toEqual(user)
             expect(usuariosService.update).toHaveBeenCalledTimes(1)
         });
@@ -104,20 +104,20 @@ describe('TesteController', () => {
             const id = '23sdsd';
             jest.spyOn(usuariosService, 'update').mockRejectedValueOnce(new Error());
 
-            expect(usuarioscontroller.update(id,body)).rejects.toThrowError();
+            expect(usuariosController.update(id,body)).rejects.toThrowError();
         })
     });
     describe('remove',()=>{
         it('deve deletar um usuario',async()=>{
             const id = '23sdsd';
-            const result = await usuarioscontroller.remove(id)
+            const result = await usuariosController.remove(id)
             expect(result).toEqual(true)
             expect(usuariosService.remove).toHaveBeenCalledTimes(1)
         });
         it('deve lançar uma exeção',()=>{
             const id = '23sdsd';
             jest.spyOn(usuariosService, 'remove').mockRejectedValueOnce(new Error());
-            expect(usuarioscontroller.remove(id)).rejects.toThrowError()
+            expect(usuariosController.remove(id)).rejects.toThrowError()
         })
     });
 });
