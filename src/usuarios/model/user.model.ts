@@ -17,23 +17,39 @@ export type UserDocument = User & Document;
 export class User implements UserModel {
 
     @Prop({ required: true })
-    @ApiProperty()
+    @ApiProperty({
+        description: 'Nome do usuário',
+        type: String,
+        example:'Lucas'
+    })
     @IsNotEmpty({
         message: 'Digite um nome de Usuário'
     })
     name: string;
 
     @Prop({ required: true, unique: true })
-    @ApiProperty()
+    @ApiProperty({
+        description: 'Email do usuário',
+        type: String,
+        example:'admin@gmail.com'
+    })
     @IsEmail({}, { message: 'Digite um endereço de email válido.' })
     email: string;
 
     @Prop({ required: true })
-    @ApiProperty()
+    @ApiProperty({
+        description: 'Senha do usuário',
+        type: String,
+        example:'admin123@'
+    })
     password: string;
 
     @Prop({ required: true })
-    @ApiProperty()
+    @ApiProperty({
+        description: 'Cargo do usuário',
+        type: String,
+        example:'admin'
+    })
     @IsNotEmpty({
         message: 'Informe o cargo do usuário'
     })
