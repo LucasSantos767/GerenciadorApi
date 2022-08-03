@@ -27,7 +27,8 @@ export class UsuariosService {
     return this.userModel.find();
 
   }
-  update(id: string, user: User) {
+  async update(id: string, user: User) {
+    user.password = await bcrypt.hash(user.password, 10),
     this.sockerModel.emitupdateUser(id);
     return this.userModel.findByIdAndUpdate(id, user);
   }
