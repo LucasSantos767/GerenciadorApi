@@ -7,14 +7,12 @@ import { AuthRequest } from '../model/AuthRequest';
 
 @Controller()
 export class AuthController {
-    constructor(private readonly authService: AuthService,private readonly socketGateway: SocketGateway) { }
-
+    constructor(private readonly authService: AuthService) { }
     @IsPublic()
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
     login(@Request() req: AuthRequest) {
-        this.socketGateway.emitUserLogged()
         return this.authService.login(req.user)
     }
 }

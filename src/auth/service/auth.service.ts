@@ -1,3 +1,4 @@
+import { SocketGateway } from 'src/socket/socket.gateway';
 import { UserToken } from './../model/UserToken';
 import { UserPayload } from './../model/UserPayload';
 import { User } from './../../usuarios/model/user.model';
@@ -8,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly usuariosService: UsuariosService, private readonly jwtService: JwtService) { }
+    constructor(private readonly usuariosService: UsuariosService, private readonly jwtService: JwtService, private readonly socketGateway: SocketGateway) { }
     login(user: User): UserToken {
         const payload: UserPayload = {
             email: user.email,
@@ -25,6 +26,7 @@ export class AuthService {
         if (user) {
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (isPasswordValid) {
+                this.socketGateway.emitUserLogged(user)
                 return {
                     name: user.name,
                     email: user.email,
